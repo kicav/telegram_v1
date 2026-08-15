@@ -52,7 +52,7 @@ def assert_invariants() -> None:
     offenders: list[str] = []
     for path in SRC.rglob("*.py"):
         text = path.read_text(encoding="utf-8")
-        rel = str(path.relative_to(SRC))
+        rel = path.relative_to(SRC).as_posix()    
         if "database.connect()" in text and rel != "runtime/db_writer.py":
             offenders.append(rel)
         if ".db.connect()" in text:
